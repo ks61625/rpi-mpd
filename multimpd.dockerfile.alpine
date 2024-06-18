@@ -17,11 +17,10 @@ RUN mkdir -p /etc/mpd/conf ; \
   echo "DIR=/etc/mpd/conf" >> /mpd.sh ; \
   echo "if [ -d \"\$DIR\" ]" >> /mpd.sh ; \
   echo "then" >> /mpd.sh ; \
-  echo "  if [ \"\$(ls -A \$DIR)\" ]; then" >> /mpd.sh ; \
-  echo "   for d in \"\$DIR/*.conf\";" >> /mpd.sh ; \
-  echo "   do chown -fR mpd:audio \$d; /usr/bin/mpd --no-daemon --stdout \$d" >> /mpd.sh ; \
-  echo "   done;" >> /mpd.sh ; \
-  echo "  fi" >> /mpd.sh ; \
+  echo "  chown -fR mpd:audio \$DIR" >> /mpd.sh ; \
+  echo "  find \$DIR -type f -print0 | while IFS= read -r -d \$'\0' file;" >> /mpd.sh ; \
+  echo "    do /usr/bin/mpd --no-daemon --stdout \$file" >> /mpd.sh ; \
+  echo "  done" >> /mpd.sh ; \
   echo "fi" >> /mpd.sh ; \
   chmod a+x /mpd.sh ; \
   chown -fR mpd:audio /etc/mpd ;
