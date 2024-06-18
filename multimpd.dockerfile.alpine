@@ -19,7 +19,7 @@ RUN mkdir -p /etc/mpd/conf ; \
   echo "then" >> /mpd.sh ; \
   echo "  if [ \"\$(ls -A \$DIR)\" ]; then" >> /mpd.sh ; \
   echo "   for d in \"\$DIR/*.conf\";" >> /mpd.sh ; \
-  echo "   do \$(\"chown -R mpd:audio \$d\") && \$(\"/usr/bin/mpd --no-daemon --stdout \$d\")" >> /mpd.sh ; \
+  echo "   do chown -fR mpd:audio \$d; /usr/bin/mpd --no-daemon --stdout \$d" >> /mpd.sh ; \
   echo "   done;" >> /mpd.sh ; \
   echo "  fi" >> /mpd.sh ; \
   echo "fi" >> /mpd.sh ; \
