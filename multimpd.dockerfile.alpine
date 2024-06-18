@@ -13,13 +13,13 @@ RUN set -eux ; \
     chown -R mpd:audio /var/lib/mpd ;
 
 RUN mkdir -p /etc/mpd/conf ; \
-  echo "#!/bin/bash" > /mpd.sh ; \
+  echo "#!/bin/sh" > /mpd.sh ; \
   echo "DIR=/etc/mpd/conf" >> /mpd.sh ; \
-  echo "if [ -d \"$DIR\" ]" >> /mpd.sh ; \
+  echo "if [ -d \"\$DIR\" ]" >> /mpd.sh ; \
   echo "then" >> /mpd.sh ; \
-  echo "  if [ \"$(ls -A $DIR)\" ]; then" >> /mpd.sh ; \
-  echo "   for d in \"$DIR/*.conf\";" >> /mpd.sh ; \
-  echo "   do $(\"chown -R mpd:audio $d\") && $(\"/usr/bin/mpd --no-daemon --stdout $d\")" >> /mpd.sh ; \
+  echo "  if [ \"\$(ls -A \$DIR)\" ]; then" >> /mpd.sh ; \
+  echo "   for d in \"\$DIR/*.conf\";" >> /mpd.sh ; \
+  echo "   do \$(\"chown -R mpd:audio \$d\") && \$(\"/usr/bin/mpd --no-daemon --stdout \$d\")" >> /mpd.sh ; \
   echo "   done;" >> /mpd.sh ; \
   echo "  fi" >> /mpd.sh ; \
   echo "fi" >> /mpd.sh ; \
