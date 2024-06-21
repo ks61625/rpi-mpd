@@ -13,11 +13,11 @@ RUN set -eux ; \
     chown -R mpd:audio /var/lib/mpd ;
 
 RUN mkdir -p /etc/mpd/conf ; \
+  chown -fR mpd:audio /etc/mpd/conf
   echo "#!/bin/sh" > /mpd.sh ; \
   echo "DIR=/etc/mpd/conf" >> /mpd.sh ; \
   echo "if [ -d \"\$DIR\" ]" >> /mpd.sh ; \
   echo "then" >> /mpd.sh ; \
-  echo "  chown -fR mpd:audio \$DIR" >> /mpd.sh ; \
   echo "  find \$DIR -type f -print0 | while IFS= read -r -d \$'\0' file;" >> /mpd.sh ; \
   echo "    do /usr/bin/mpd --no-daemon --stdout \$file &" >> /mpd.sh ; \
   echo "  done" >> /mpd.sh ; \
