@@ -22,6 +22,7 @@ RUN mkdir -p /etc/mpd/conf ; \
   echo "    do /usr/bin/mpd --no-daemon --stdout \$file &" >> /mpd.sh ; \
   echo "  done" >> /mpd.sh ; \
   echo "fi" >> /mpd.sh ; \
+  echo "sleep infinity" >> /mpd.sh ; \
   chmod a+x /mpd.sh ; \
   chown -fR mpd:audio /etc/mpd ;
 
